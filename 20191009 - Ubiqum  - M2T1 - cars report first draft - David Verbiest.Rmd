@@ -26,13 +26,13 @@ names(dataset_cars) <- c("name_of_car", "speed_of_car", "distance_of_car")
 
 # Executive summary
 
-The goal of this analysis is to **predict the breaking distance of car** based on its **speed before breaking**. We used a **linear model** to predict the breaking distance of the car. To get the best performing linear model we **transformed the speed of the car**. We **squared** the speed of the car, as this relationship between the squared speed and the breaking distance are linear. We estimated the **following model**
+The goal of this analysis is to **predict the breaking distance of car** based on its **speed before breaking**. We used a **linear model** to predict the breaking distance of the car. To get the best performing linear model we **transformed the speed of the car**. We **squared** the speed of the car, as the relationship between the squared speed and the breaking distance is quasi linear. We estimated the **following model**
 
 $$y = 3.17 + 0.15x$$
 
-In this equation **x stands for the squared speed**. This means that for every increase in squared speed of the car the breaking distance increase by 0.15. This means that **the breaking distance increases at a quadratic rate as the speed increases.** Or put in other words, the breaking distance becomes increasingly longer the faster you go.
+In this equation **x stands for the squared speed**. This means that for every unit increase in squared speed of the car the breaking distance increase by 0.15. This means that **the breaking distance increases at a quadratic rate for a constant speed increases.** Or put in other words, the breaking distance becomes increasingly longer the faster you go.
 
-The **model perfromed well** in terms of predicting test data, data never seen by the model before as estimated model **explained 99% of the variance** in the dependent variable. This can also be seen graphically as the **graphical representation** of the model **closely fits the test datapoints**.
+The **model perfromed well** in terms of predicting test data, data never seen by the model before. The model **explained 99% of the variance** in the dependent variable. This can also be seen graphically as the **graphical representation** of the model **closely fits the test datapoints**.
 
 # Analysis
 
@@ -149,7 +149,6 @@ predictions_model1 <- predict(lm_model1, test_set)
 test_set$prediction <- predictions_model1
 test_set$error <- test_set$distance_of_car - predictions_model1
 test_set$relative_error <- paste(round(((abs(test_set$error) / test_set$distance_of_car)*100), digits = 2), "%")
-print(test_set)
 MRE <- round(mean((abs(test_set$error) / test_set$distance_of_car)*100), 2)
 ggplot(test_set, aes(x = speed_of_car_squared, y = distance_of_car)) + geom_point() + geom_abline(intercept = lm_model1_intercept, slope = lm_model1_coef1) + ggtitle(lm_model1_eq)
 ```
@@ -162,4 +161,13 @@ In other words our model can make strong predictions of the distance a car needs
 ggplot(test_set, aes(error)) + geom_histogram(binwidth = 1)
 ```
 
-# When we take a closer look at our errors we can see that the most errors are around 0, indicating that we have good model and we extracted all information from the data. The mean relative error is `r paste() `
+## Predictions
+
+```{r, echo=FALSE}
+predictions_table <- test_set[, c(1, 3, 5, 6, 7)]
+predictions_table$prediction <- round(predictions_table$prediction, 2)
+predictions_table$error <- round(predictions_table$error, 2)
+predictions_table$relative_error <- predictions_table$relative_error
+knitr::kable(predictions_table, align = "c")
+```
+
