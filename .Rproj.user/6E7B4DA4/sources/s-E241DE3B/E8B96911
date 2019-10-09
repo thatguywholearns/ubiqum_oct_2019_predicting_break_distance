@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1570528213216.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "E8B96911",
+    "lastKnownWriteTime" : 1570619317,
+    "last_content_update" : 1570619317021,
+    "path" : "~/Documents/R Files/Ubiqum/Module 2/Task 1/cars report.Rmd",
+    "project_path" : "cars report.Rmd",
+    "properties" : {
+        "cursorPosition" : "117,0",
+        "scrollLine" : "101",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

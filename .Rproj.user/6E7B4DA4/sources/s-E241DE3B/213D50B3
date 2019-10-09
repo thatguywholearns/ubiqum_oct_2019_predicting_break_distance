@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1570521961967.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "213D50B3",
+    "lastKnownWriteTime" : 1570619247,
+    "last_content_update" : 1570624171627,
+    "path" : "~/Documents/R Files/Ubiqum/Module 2/Task 1/Cars.R",
+    "project_path" : "Cars.R",
+    "properties" : {
+        "cursorPosition" : "75,10",
+        "docOutlineVisible" : "0",
+        "scrollLine" : "54",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
