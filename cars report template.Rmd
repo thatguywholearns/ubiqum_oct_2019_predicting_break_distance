@@ -1,7 +1,13 @@
 ---
-title: "Cars report - David Verbiest"
-output: html_document
+title: "Cars Report"
+author: "David Verbiest"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -24,13 +30,9 @@ The goal of this analysis is to **predict the breaking distance of car** based o
 
 $$y = 3.17 + 0.15x$$
 
-In this equation x stands for the squared speed. This means that for every increase in squared speed of the car the breaking distance increase by 0.15. The **model perfromed well** in terms of predicting test data, data never seen by the model before as estimated model **explained 99% of the variance** in the dependent variable. 
+In this equation **x stands for the squared speed**. This means that for every increase in squared speed of the car the breaking distance increase by 0.15. This means that **the breaking distance increases at a quadratic rate as the speed increases.** Or put in other words, the breaking distance becomes increasingly longer the faster you go.
 
-This can also be seen graphically as the **graphical representation** of the model **closely fits the test datapoints**.
-
-
-
-
+The **model perfromed well** in terms of predicting test data, data never seen by the model before as estimated model **explained 99% of the variance** in the dependent variable. This can also be seen graphically as the **graphical representation** of the model **closely fits the test datapoints**.
 
 # Analysis
 
@@ -77,7 +79,7 @@ knitr::kable(outliers_instance, align="c")
 
 In order not to bias the prediction we remove this data point from the training data.
 
-```{r}
+```{r, echo=FALSE}
 dataset_cars <- dataset_cars[-which(dataset_cars$distance_of_car %in% outliers),]
 ```
 
@@ -92,7 +94,7 @@ We see that there is pattern present, however the pattern is not linear. Distanc
 
 In order to fit a line through the data that is able to predict the data we need to transform the distance variable. We square the variable so that the both variables increase at the same rate. 
 
-```{r fig.align="center"}
+```{r fig.align="center", echo=FALSE}
 dataset_cars$speed_of_car_squared <- dataset_cars$speed_of_car*dataset_cars$speed_of_car
 ```
 
@@ -130,7 +132,7 @@ lm_model1_coef1 <- intercept <- lm_model1_coef[2]
 lm_model1_eq <- paste("estimated model: y = ", round(lm_model1_intercept, 2), " + ", round(lm_model1_coef1, 2), " *x" )
 ```
 
-We can see that the p-value for our estimated parameters is less than 0.05 meaning that the estimates for our parameters significant with a confidence level 95%. The model also has a R squared of 98.9% on the training, meaning that our model explains 98.9% of the variation in the data.
+We can see that the p-value for our estimated parameters is less than 0.05 meaning that the estimates for our parameters significant with a confidence level 95%. The model also has a R squared of 98.9% on the training data, meaning that our model explains 98.9% of the variation in the data.
 
 ## Testing
 
@@ -146,21 +148,18 @@ predictions_model1 <- predict(lm_model1, test_set)
 #Add predictions and prediction error to dataframe test data and plot predictions against real values
 test_set$prediction <- predictions_model1
 test_set$error <- test_set$distance_of_car - predictions_model1
-test_set$relative_error <- paste(round(((test_set$error / test_set$distance_of_car)*100), digits = 2), "%")
+test_set$relative_error <- paste(round(((abs(test_set$error) / test_set$distance_of_car)*100), digits = 2), "%")
+print(test_set)
+MRE <- round(mean((abs(test_set$error) / test_set$distance_of_car)*100), 2)
 ggplot(test_set, aes(x = speed_of_car_squared, y = distance_of_car)) + geom_point() + geom_abline(intercept = lm_model1_intercept, slope = lm_model1_coef1) + ggtitle(lm_model1_eq)
 ```
 
 When we run our model on the test data we see that the R squared increases to 99.18%
-In other words our model can make strong predictions of the distance a car needs to break based on the speed of that car. We can also see this graphically as we see the the model closely alligns with the test data.
+In other words our model can make strong predictions of the distance a car needs to break based on the squared speed of that car. We can also see this graphically as we see the the model closely alligns with the test data.
 
 
 ```{r, echo=FALSE}
-#ggplot(test_set, aes(y = error))
+ggplot(test_set, aes(error)) + geom_histogram(binwidth = 1)
 ```
-When we take a coser look at our errors we can see that the most errors are around 0, indicating   that we have good model and we extracted all information from the data
 
-
-
-
-
-
+# When we take a closer look at our errors we can see that the most errors are around 0, indicating that we have good model and we extracted all information from the data. The mean relative error is `r paste() `
