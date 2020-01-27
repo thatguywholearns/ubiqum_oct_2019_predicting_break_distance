@@ -1,10 +1,15 @@
 #Import all used libraries
 library(readr)
 library(ggplot2)
+library(rstudioapi)
+
+# Set working directory
+path <- getActiveDocumentContext()$path
+setwd(dirname(path))
 
 #Import dataset_cars
-dataset_cars <- read.csv('./R Tutorial Data Sets/cars.csv', header = TRUE)
-
+dataset_cars <- read.csv('./data/cars.csv', header = TRUE)
+Ò
 #Inspect the the structure, variables and summary statistics of the dataset_cars
 names(dataset_cars)
 attributes(x = dataset_cars)
