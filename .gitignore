@@ -1,5 +1,6 @@
 .*
 !.gitignore
+!.gitattributes
 
 .Rproj.user
 20191004 - Ubiqum - M2 - T1 - Cars - Expl Excel.xlsx
